@@ -13,10 +13,12 @@ reach.setProviderByName('TestNet');
 let interact ={}
  let acc ={}
  const WINNING_STATES= ["Its a draw", "Player 1 wins","Player 2 wins"];
+ let stdlib ={}
  function App() {
   useEffect(async()=>{
-    let stdlib = await loadStdlib();
+   
     acc = await  reach.getDefaultAccount();
+    stdlib = reach;
     const addr = await acc.getAddress();
     const balAtomic = await reach.balanceOf(acc);
     console.log(addr);
@@ -42,6 +44,7 @@ const deployContract=async(data)=>{
 
         };
   interact.wager = parseInt(wager);
+  console.log(interact);
   // interact.acceptWager=()=>true;
   
   interact.displayWinner= (index)=>{
