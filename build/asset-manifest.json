@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/morra-react/static/css/main.42a6766c.chunk.css",
+    "main.js": "/morra-react/static/js/main.35e62bf4.chunk.js",
+    "main.js.map": "/morra-react/static/js/main.35e62bf4.chunk.js.map",
+    "runtime-main.js": "/morra-react/static/js/runtime-main.413bd440.js",
+    "runtime-main.js.map": "/morra-react/static/js/runtime-main.413bd440.js.map",
+    "static/js/2.f8278a80.chunk.js": "/morra-react/static/js/2.f8278a80.chunk.js",
+    "static/js/2.f8278a80.chunk.js.map": "/morra-react/static/js/2.f8278a80.chunk.js.map",
+    "static/js/3.0d1cf83a.chunk.js": "/morra-react/static/js/3.0d1cf83a.chunk.js",
+    "static/js/3.0d1cf83a.chunk.js.map": "/morra-react/static/js/3.0d1cf83a.chunk.js.map",
+    "index.html": "/morra-react/index.html",
+    "static/css/main.42a6766c.chunk.css.map": "/morra-react/static/css/main.42a6766c.chunk.css.map",
+    "static/js/2.f8278a80.chunk.js.LICENSE.txt": "/morra-react/static/js/2.f8278a80.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/morra-react/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.413bd440.js",
+    "static/js/2.f8278a80.chunk.js",
+    "static/css/main.42a6766c.chunk.css",
+    "static/js/main.35e62bf4.chunk.js"
+  ]
+}
