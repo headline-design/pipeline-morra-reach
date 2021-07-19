@@ -222,7 +222,8 @@ const wager = declassify(interact.wager);
     exit();
 
 }
-)```
+)
+```
 
 # Interaction Introduction
 
