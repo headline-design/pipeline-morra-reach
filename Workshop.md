@@ -227,7 +227,7 @@ const wager = declassify(interact.wager);
 
 # Interaction Introduction
 
-Since we are through with our Reach code, all that remains is to connect it to a frontend so users can play our Morra game. For this, i will be using a web frontend which is a React project, i do reccomend that you go through the readme.md file of this repo as it is a better way to understand things from the frontend perspective:
+Since we are through with our Reach code, all that remains is to connect it to a frontend so users can play our Morra game. For this, i will be using a web frontend which is a React project, i do reccomend that you go through the [readme](https://github.com/Jesulonimi21/morra-react/blob/main/readme.md) file of this repo as it is a better way to understand things from the frontend perspective:
 
 ```css
 
