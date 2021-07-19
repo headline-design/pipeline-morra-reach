@@ -2,13 +2,13 @@
 In this workshop, I will explain the Project Ayeni Tosin and I submitted for the Universities Unchained Bounty hack. It's actually a Morra game, just in case you don't know what morra is,  Morra is a game where players submit their fingers along with a prediction of the total amount of all players fingers and whoever gets the right prediction is the winner. In our project, we made our variation of Morra in such a way that a wager could be placed on each game and whoever wins the game takes the total wager. You can also go through this [article](https://anjola4jeez.medium.com/developing-apps-that-run-on-more-than-one-blockchain-with-reach-9a3232ed3386) to have a grasp of the experience we had while working on the project
 
 # Problem Analysis
-The first step in any program design is to perform problem analysis and determine what information is relevant to the problem. When writing decentralized applications in Reach, this information analysis includes an analysis of the set of [participants](https://docs.reach.sh/ref-model.html#%28tech._participant%29)involved in a computation.
+The first step in any program design is to perform problem analysis and determine what information is relevant to the problem. When writing decentralized applications in Reach, this information analysis includes an analysis of the set of [participants](https://docs.reach.sh/ref-model.html#%28tech._participant%29) involved in a computation.
 
 - Who is involved in this application?
 - What information do they know at the start of the program?
 - What information are they going to discover and use in the program?
 - What funds change ownership during the application and how?
-You should write your answers in your Reach program (index.rsh) using a comment./* Remember comments are written like this. */
+You should write your answers in your Reach program (index.rsh) using a comment.  /* Remember comments are written like this. */
 
 ### Stop!
 Write down the problem analysis of this program as a comment.
@@ -43,7 +43,7 @@ const Player2 = {
 [Participant('Player1',Player1),Participant('Player2',Player2)]
 ```
 
-We simply allow both players  to `play` sending in a two numbers one that represents the number of fingers and the other that represent's the prediction, and we also allow them to view the winner with the `displayWinner` function, we also have the variable `wager` that is specific to the first player who deploy's the contract and `acceptWager` that is specific to the second person who deploy's the contract.
+We simply allow both players  to `play` sending in a two numbers one that represents the number of fingers and the other that represent's the prediction, and we also allow them to view the winner with the `displayWinner` function, we also have the variable `wager` that is specific to the first player who deploy's the contract and `acceptWager` that is specific to the second person who connect's the contract.
 
 # Communication Construction
 Now,let's see the communication flow in our project, meaning the order of interactions that have to happen:
@@ -127,11 +127,11 @@ const wager = declassify(interact.wager);
 We simply get the information we need from Player1 and do not publish it, we instead publish a commitment to it, and we use a cryptographic commitment scheme to make sure its correct after Player2 has made his move; hereby ensuring the secrecy of information and still maintaining it's integrity.
 
 # Assertion Insertion
-Due to simplicity of the code there is not a big concern about the assertions.But in the code above we make knowledge  assertions to make sure Player2 does not know what player1 has played. The lone of code below is responsible for that assertion:
+Due to simplicity of the code there is not a big concern about the assertions.But in the code above we make knowledge  assertions to make sure Player2 does not know what player1 has played. The line of code below is responsible for that assertion:
 ```rsh
   unknowable(B,A(_finger1,_prediction1,_finger1Salt,_prediction1Salt))
 ```
-We also assert that the balance does not changw after the while loop with the line:
+We also assert that the balance does not change after the while loop with the line:
 ```rsh
 assert(balance()==2*wager)
 ```
@@ -222,7 +222,7 @@ const wager = declassify(interact.wager);
     exit();
 
 }
-)
+)```
 
 # Interaction Introduction
 
