@@ -11,7 +11,7 @@ const reach = loadStdlib('ALGO-test-dockerized-algod')
 //reach.setSignStrategy('AlgoSigner');
 //reach.setProviderByName('DevNet');
 
-async function test() {(async () => {
+async function test() {
   const startingBalance = reach.parseCurrency(10);
 
   const accAlice = await reach.newTestAccount(startingBalance);
@@ -94,7 +94,6 @@ async function test() {(async () => {
   console.log(`Bob went from ${beforeBob} to ${afterBob}.`);
 
 */
-})();
 }
 
 class App extends Component {
