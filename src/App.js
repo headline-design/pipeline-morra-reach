@@ -7,10 +7,18 @@ import { Button, AlgoAddress } from 'pipeline-ui';
 
 var acc = {};
 
+const env = {
+  ALGOD_SERVER: "https://algoexplorerapi.io",
+ALGOD_PORT: "",
+ALGOD_TOKEN: "",
+ALGO_INDEXER_SERVER: "https://algoexplorerapi.io/idx2/"
+};
 
-const reach = loadStdlib('ALGO')
+
+
+const reach = loadStdlib('ALGO-live')
 //reach.setSignStrategy('AlgoSigner');
-reach.setProviderByName('LocalHost');
+reach.setProviderByEnv(env);
 
 async function test() {
   const accAlice = await reach.newTestAccount(reach.parseCurrency(5));
