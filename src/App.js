@@ -7,17 +7,18 @@ import { Button, AlgoAddress } from 'pipeline-ui';
 
 var acc = {};
 
-const reach = loadStdlib('ALGO-test-dockerized-algod')
+const reach = loadStdlib('ALGO')
 //reach.setSignStrategy('AlgoSigner');
-//reach.setProviderByName('DevNet');
+//reach.setProviderByName('TestNet');
 
 async function test() {
-  const startingBalance = reach.parseCurrency(10);
+  const faucet = await reach.getFaucet();
+  const startingBalance = reach.parseCurrency(100);
 
   const accAlice = await reach.newTestAccount(startingBalance);
-  const accBob = await reach.newTestAccount(startingBalance);
+ /* const accBob = await reach.newTestAccount(startingBalance);
 
-  /*
+ 
   
   const fmt = (x) => reach.formatCurrency(x, 4);
   const getBalance = async (who) => fmt(await reach.balanceOf(who));
@@ -102,11 +103,12 @@ class App extends Component {
     this.state = { address: "" }
   }
 
-  deploy = () => {
+   deploy = () => {
 
     reach.getDefaultAccount().then(data => {
       this.setState({ address: data.networkAccount.addr });
-      acc = data;
+      let acc = data;
+      reach.balanceOf(acc).then(data2 => { console.log("Balance" + data2)});
     })
   }
   render() {
