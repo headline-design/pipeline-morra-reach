@@ -10,7 +10,24 @@ var acc = {};
 
 const reach = loadStdlib('ALGO')
 //reach.setSignStrategy('AlgoSigner');
-//reach.setProviderByName('TestNet');
+reach.setProviderByName('LocalHost');
+
+async function test() {
+  const accAlice = await reach.newTestAccount(reach.parseCurrency(5));
+  const accBob = await reach.newTestAccount(reach.parseCurrency(10));
+  const ctcAlice = accAlice.deploy(backend);
+  const ctcBob = accBob.attach(backend, ctcAlice.getInfo());
+  await Promise.all([
+    backend.Alice(ctcAlice, {
+      request: reach.parseCurrency(5),
+      info: 'If you wear these, you can see beyond evil illusions.'
+    }),
+    backend.Bob(ctcBob, {
+      want: (amt) => console.log(`Alice asked Bob for ${reach.formatCurrency(amt)}`),
+      got: (secret) => console.log(`Alice's secret is: ${secret}`),
+    }),
+  ]);
+}
 
 class App extends Component{
   constructor(props){
@@ -23,13 +40,12 @@ class App extends Component{
     reach.getDefaultAccount().then(data => {
       this.setState({address: data.networkAccount.addr});
       acc = data;
-      const ctc = acc.deploy(backend);
-      console.log(ctc);
     } )
   }
   render(){
     return(<div align="center"><Button onClick={this.deploy}>Initialize</Button>
     <AlgoAddress address={this.state.address}/>
+    <Button onClick={() => test()}>Test</Button>
     </div>)
   }
 }
