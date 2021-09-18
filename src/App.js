@@ -5,7 +5,7 @@ import { loadStdlib } from '@reach-sh/stdlib'
 import * as backend from './build/index.main.mjs';
 import { Button, Heading } from 'pipeline-ui';
 
-var myLog = "";
+var myLog = [];
 
 const reach = loadStdlib('ALGO-devnet')
 
@@ -32,11 +32,11 @@ async function test() {
     getFingers: async () => {
       // const fingers = Math.floor(Math.random() * 3);
       const fingers = Math.floor(Math.random() * 6);
-      myLog = (`${Who} shoots ${FINGERS[fingers]} fingers`);
+      myLog.push(`${Who} shoots ${FINGERS[fingers]} fingers`);
       // build in occasional timeout
       if (Math.random() <= 0.01) {
         for (let i = 0; i < 10; i++) {
-          myLog = (`  ${Who} takes their sweet time sending it back...`);
+          myLog.push(`  ${Who} takes their sweet time sending it back...`);
           await reach.wait(1);
         }
       }
@@ -49,23 +49,23 @@ async function test() {
       // occassional timeout
       if (Math.random() <= 0.01) {
         for (let i = 0; i < 10; i++) {
-          myLog = (`  ${Who} takes their sweet time sending it back...`);
+          myLog.push(`  ${Who} takes their sweet time sending it back...`);
           await reach.wait(1);
         }
       }
-      myLog = (`${Who} guessed total of ${guess}`);
+      myLog.push(`${Who} guessed total of ${guess}`);
       return guess;
     },
     seeWinning: (winningNumber) => {
-      myLog = (`Actual total fingers thrown: ${winningNumber}`);
-      myLog = (`----------------------------`);
+      myLog.push(`Actual total fingers thrown: ${winningNumber}`);
+      myLog.push(`----------------------------`);
     },
 
     seeOutcome: (outcome) => {
-      myLog = (`${Who} saw outcome ${OUTCOME[outcome]}`);
+      myLog.push(`${Who} saw outcome ${OUTCOME[outcome]}`);
     },
     informTimeout: () => {
-      myLog = (`${Who} observed a timeout`);
+      myLog.push(`${Who} observed a timeout`);
     },
   });
 
@@ -78,7 +78,7 @@ async function test() {
     backend.Bob(ctcBob, {
       ...Player('Bob'),
       acceptWager: (amt) => {
-        myLog = (`Bob accepts the wager of ${fmt(amt)}.`);
+        myLog.push(`Bob accepts the wager of ${fmt(amt)}.`);
       },
       ...reach.hasConsoleLogger,
     }),
@@ -86,15 +86,15 @@ async function test() {
   const afterAlice = await getBalance(accAlice);
   const afterBob = await getBalance(accBob);
 
-  myLog = (`Alice went from ${beforeAlice} to ${afterAlice}.`);
-  myLog = (`Bob went from ${beforeBob} to ${afterBob}.`);
+  myLog.push(`Alice went from ${beforeAlice} to ${afterAlice}.`);
+  myLog.push(`Bob went from ${beforeBob} to ${afterBob}.`);
 
 }
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { cLog: "" }
+    this.state = { cLog: [] }
   }
 
   componentDidMount() {
@@ -105,7 +105,7 @@ class App extends Component {
     return (<div align="center">
       <Heading>Reach Morra via Algorand</Heading>
       <Button onClick={() => test()}>Deploy Morra!</Button><br></br>
-      {this.state.cLog}
+      {this.state.cLog.map(row => {return(<div>{row}</div>)})}
     </div>)
   }
 }
