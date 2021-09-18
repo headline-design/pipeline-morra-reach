@@ -7,18 +7,19 @@ import { Button, AlgoAddress } from 'pipeline-ui';
 
 var acc = {};
 
-const reach = loadStdlib('ALGO')
+const reach = loadStdlib('ALGO-devnet')
 //reach.setSignStrategy('AlgoSigner');
-//reach.setProviderByName('TestNet');
+reach.setProviderByEnv({
+  
+
+});
 
 async function test() {
-  const faucet = await reach.getFaucet();
-  const startingBalance = reach.parseCurrency(100);
+  const startingBalance = reach.parseCurrency(1000);
 
   const accAlice = await reach.newTestAccount(startingBalance);
- /* const accBob = await reach.newTestAccount(startingBalance);
-
- 
+  console.log(accAlice)
+ const accBob = await reach.newTestAccount(startingBalance);
   
   const fmt = (x) => reach.formatCurrency(x, 4);
   const getBalance = async (who) => fmt(await reach.balanceOf(who));
@@ -94,7 +95,6 @@ async function test() {
   console.log(`Alice went from ${beforeAlice} to ${afterAlice}.`);
   console.log(`Bob went from ${beforeBob} to ${afterBob}.`);
 
-*/
 }
 
 class App extends Component {
