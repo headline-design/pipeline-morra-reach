@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { loadStdlib } from '@reach-sh/stdlib'
 import * as backend from './build/index.main.mjs';
-import { Button, AlgoAddress } from 'pipeline-ui';
+import { Button, Heading } from 'pipeline-ui';
 
-var acc = {};
+var myLog = "";
 
 const reach = loadStdlib('ALGO-devnet')
 //reach.setSignStrategy('AlgoSigner');
@@ -18,7 +18,6 @@ async function test() {
   const startingBalance = reach.parseCurrency(1000);
 
   const accAlice = await reach.newTestAccount(startingBalance);
-  console.log(accAlice)
  const accBob = await reach.newTestAccount(startingBalance);
   
   const fmt = (x) => reach.formatCurrency(x, 4);
@@ -38,11 +37,11 @@ async function test() {
     getFingers: async () => {
      // const fingers = Math.floor(Math.random() * 3);
       const fingers = Math.floor(Math.random() * 6);         
-      console.log(`${Who} shoots ${FINGERS[fingers]} fingers`);
+     myLog = (`${Who} shoots ${FINGERS[fingers]} fingers`);
      // build in occasional timeout
       if ( Math.random() <= 0.01 ) {
         for ( let i = 0; i < 10; i++ ) {
-          console.log(`  ${Who} takes their sweet time sending it back...`);
+          myLog = (`  ${Who} takes their sweet time sending it back...`);
           await reach.wait(1);
         }
       }     
@@ -55,23 +54,23 @@ async function test() {
      // occassional timeout
       if ( Math.random() <= 0.01 ) {
         for ( let i = 0; i < 10; i++ ) {
-          console.log(`  ${Who} takes their sweet time sending it back...`);
+          myLog = (`  ${Who} takes their sweet time sending it back...`);
           await reach.wait(1);
         }
       }
-      console.log(`${Who} guessed total of ${guess}`);   
+      myLog = (`${Who} guessed total of ${guess}`);   
       return guess;
     },
     seeWinning: (winningNumber) => {    
-      console.log(`Actual total fingers thrown: ${winningNumber}`);
-      console.log(`----------------------------`);  
+      myLog = (`Actual total fingers thrown: ${winningNumber}`);
+      myLog = (`----------------------------`);  
     },
 
     seeOutcome: (outcome) => {
-      console.log(`${Who} saw outcome ${OUTCOME[outcome]}`);
+      myLog = (`${Who} saw outcome ${OUTCOME[outcome]}`);
     },
     informTimeout: () => {
-      console.log(`${Who} observed a timeout`);
+      myLog = (`${Who} observed a timeout`);
     },
   });
 
@@ -84,7 +83,7 @@ async function test() {
     backend.Bob(ctcBob, {
       ...Player('Bob'),
       acceptWager: (amt) => {      
-        console.log(`Bob accepts the wager of ${fmt(amt)}.`);
+        myLog = (`Bob accepts the wager of ${fmt(amt)}.`);
       },
       ...reach.hasConsoleLogger,      
     }),
@@ -92,15 +91,20 @@ async function test() {
   const afterAlice = await getBalance(accAlice);
   const afterBob = await getBalance(accBob);
 
-  console.log(`Alice went from ${beforeAlice} to ${afterAlice}.`);
-  console.log(`Bob went from ${beforeBob} to ${afterBob}.`);
+  myLog = (`Alice went from ${beforeAlice} to ${afterAlice}.`);
+  myLog = (`Bob went from ${beforeBob} to ${afterBob}.`);
 
 }
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { address: "" }
+    this.state = { address: "",
+                    cLog: ""}
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.setState({cLog: myLog}), 10);
   }
 
    deploy = () => {
@@ -112,9 +116,10 @@ class App extends Component {
     })
   }
   render() {
-    return (<div align="center"><Button onClick={this.deploy}>Initialize</Button>
-      <AlgoAddress address={this.state.address} />
-      <Button onClick={() => test()}>Test</Button>
+    return (<div align="center">
+      <Heading>Reach Morra via Algorand</Heading>
+      <Button onClick={() => test(this,"cLog")}>Deploy Morra!</Button><br></br>
+      {this.state.cLog}
     </div>)
   }
 }
