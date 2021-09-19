@@ -36,7 +36,7 @@ async function test() {
       // build in occasional timeout
       if (Math.random() <= 0.01) {
         for (let i = 0; i < 10; i++) {
-          myLog.push(`  ${Who} takes their sweet time sending it back...`);
+          myLog.push(`${Who} takes their sweet time sending it back...`);
           await reach.wait(1);
         }
       }
@@ -49,7 +49,7 @@ async function test() {
       // occassional timeout
       if (Math.random() <= 0.01) {
         for (let i = 0; i < 10; i++) {
-          myLog.push(`  ${Who} takes their sweet time sending it back...`);
+          myLog.push(`${Who} takes their sweet time sending it back...`);
           await reach.wait(1);
         }
       }
@@ -98,7 +98,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.setState({ cLog: myLog }), 10);
+    this.interval = setInterval(() => this.setState({ cLog: myLog }), 300);
   }
 
   render() {
