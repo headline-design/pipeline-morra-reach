@@ -10,6 +10,14 @@ var myLoading = false;
 
 const reach = loadStdlib('ALGO-devnet')
 
+//change Algo server IP to match your local reach devnet IP, or replace with "http://localhost"
+
+const myEnv = reach.providerEnvByName('LocalHost');
+console.log(myEnv)
+myEnv.ALGO_INDEXER_SERVER = "http://192.168.1.248";
+myEnv.ALGO_SERVER = "http://192.168.1.248";
+reach.setProviderByEnv(myEnv);
+
 async function test() {
   const startingBalance = reach.parseCurrency(1000);
 
