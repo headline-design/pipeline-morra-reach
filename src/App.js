@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import './App.css';
 import { loadStdlib } from '@reach-sh/stdlib'
 import * as backend from './build/index.main.mjs';
-import { Button, Heading } from 'pipeline-ui';
+import { Button, Heading, PipelineShell, Loader, Text, Flex } from 'pipeline-ui';
 
 var myLog = [];
+var myLoading = false;
 
 const reach = loadStdlib('ALGO-devnet')
 
@@ -78,6 +79,7 @@ async function test() {
     backend.Bob(ctcBob, {
       ...Player('Bob'),
       acceptWager: (amt) => {
+        myLoading = false;
         myLog.push(`Bob accepts the wager of ${fmt(amt)}.`);
       },
       ...reach.hasConsoleLogger,
@@ -94,18 +96,24 @@ async function test() {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { cLog: [] }
+    this.state = {
+      cLog: [],
+      loading: false
+    }
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.setState({ cLog: myLog }), 300);
+    this.interval = setInterval(() => this.setState({ cLog: myLog, loading: myLoading }), 100);
   }
 
   render() {
     return (<div align="center">
-      <Heading>Reach Morra via Algorand</Heading>
-      <Button onClick={() => test()}>Deploy Morra!</Button><br></br>
-      {this.state.cLog.map(row => {return(<div>{row}</div>)})}
+      <PipelineShell width="400px">
+        <Heading>Reach Morra via Algorand</Heading>
+        <Button onClick={() => { myLoading = true; test() }}>Deploy Morra!</Button><br></br>
+        <div align="center">{this.state.loading ? <Loader bg="unset" color="blue" size="40px" /> : null}</div>
+        {this.state.cLog.map(row => { return (<Text>{row}</Text>) })}
+      </PipelineShell>
     </div>)
   }
 }
