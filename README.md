@@ -1,6 +1,6 @@
-Experimental sandbox for creating Pipeline + Reach + Algorand integration
+# Experimental sandbox for Pipeline + Reach + Algorand integration
 
-# Introduction
+## Introduction
 
 This is a frontend application for running a "Morra game" created by Russ Fustino. The original Reach program is included in src/ for reference. The compiled reach program and smart contract is located in build/. The frontend logic is now located in src/App.js. 
 
